@@ -10,19 +10,29 @@ do
   echo ""
   echo "type -1 to leave script"
   echo "0   List all services"
-  echo "1   Search unauthorized files"
-  echo "2   User and Groups"
+  echo "1   Search for a file"
+  echo "2   List all users"
+  echo "3   List all groups"
   echo ""
   read input
 
   if [ $input -eq 0 ]; then
-    printf "list all services..."
+    printf "Listing services..."
+    service --status-all
 
   elif [ $input -eq 1 ]; then
-    printf "Search unauthorized files..."
+    echo "What file do you want to find?"
+    read filename
+    find $filename
+    readlink -f $filename
 
   elif [ $input -eq 2 ]; then
-    printf "User and Groups..."
+    printf "Listing users:"
+    sudo cat /etc/passwd
+
+  elif [ $input -eq 3 ]; then
+    printf "Listing groups:"
+    sudo cat /etc/group
   fi
 
 done
